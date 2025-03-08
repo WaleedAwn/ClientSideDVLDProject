@@ -13,12 +13,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace MainDVLD.People
+namespace MainDVLD.People 
 {
     public partial class frmManagePeople : Form
     {
-        
-       
+
+
         private PersonApiClient _personApiClient;
         public frmManagePeople()
         {
@@ -27,60 +27,90 @@ namespace MainDVLD.People
         }
 
 
-      
+
+    // Later i will try to not GetAllPeople From database every Load 
+    //i will try to get them once i load the Form and put them in list
+    //and when i add or edit i will do them in List also
 
 
-        private async void _RefreshAllPeopleData(string ColumnName="",object Value=null )
+        private async void _RefreshAllPeopleData(string ColumnName = "", object Value = null)
         {
-            dgvListAllPeople.Rows.Clear(); // Clear existing rows before refreshing
-
+            dgvListAllPeople.DataSource=null; // Clear existing rows before refreshing
             try
             {
-                
+                var peopleList = await _personApiClient.GetAllPeople();
 
                
-
-                var peopleList = await _personApiClient.GetAllPeople();              
                 if (peopleList != null && peopleList.Result?.Count > 0)
                 {
-                    if(Value != "" )
-                    peopleList.Result= Globals.FilterHelper.Filter(peopleList.Result, ColumnName, Value);
+                    if (Value != "")
+                        peopleList.Result = Globals.FilterHelper.Filter(peopleList.Result, ColumnName, Value);
+                        dgvListAllPeople.DataSource = peopleList.Result;
 
-                    foreach (var person in peopleList.Result)
-                    {
-                        dgvListAllPeople.Rows.Add(person.PersonID, person.NationalNo, person.FirstName,
-                            person.SecondName, person.ThirdName, person.LastName, GlobalFunctions.GetGender(person.Gendor),
-                            GlobalFunctions.FormattedDateOfBirth(person.DateOfBirth), person.NationalityCountryID, person.Phone, person.Email);
-                    }
                     lnNumberOFPeople.Text = peopleList.Result.Count.ToString();
                 }
                 else
 
                 {
-                    // Show information message if no data is returned
+                  
                     MessageBox.Show("No people to display.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-           
+
             }
             catch (HttpRequestException ex)
             {
-                // Display message if a network-related error occurs
+               
                 MessageBox.Show("Network error occurred while fetching data. Please check your internet connection.", "Network Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
                 // Display message for any other errors
-                MessageBox.Show(" Waleed An unexpected error occurred while loading data. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An unexpected error occurred while loading data. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+
+            //try
+            //{
+            //    var peopleList = await _personApiClient.GetAllPeople();
+            //    if (peopleList != null && peopleList.Result?.Count > 0)
+            //    {
+            //        if (Value != "")
+            //            peopleList.Result = Globals.FilterHelper.Filter(peopleList.Result, ColumnName, Value);
+
+            //        foreach (var person in peopleList.Result)
+            //        {
+            //            dgvListAllPeople.Rows.Add(person.PersonID, person.NationalNo, person.FirstName,
+            //            person.SecondName, person.ThirdName, person.LastName, GlobalFunctions.GetGender(person.Gendor),
+            //            GlobalFunctions.FormattedDateOfBirth(person.DateOfBirth), person.NationalityCountryID, person.Phone, person.Email);
+
+            //        }
+            //        lnNumberOFPeople.Text = peopleList.Result.Count.ToString();
+            //    }
+            //    else
+
+            //    {
+            //        // Show information message if no data is returned
+            //        MessageBox.Show("No people to display.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    }
+
+            //}
+            //catch (HttpRequestException ex)
+            //{
+            //    // Display message if a network-related error occurs
+            //    MessageBox.Show("Network error occurred while fetching data. Please check your internet connection.", "Network Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+            //catch (Exception ex)
+            //{
+            //    // Display message for any other errors
+            //    MessageBox.Show(" Waleed An unexpected error occurred while loading data. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
 
 
         }
 
         private void frmManagePeople_Load(object sender, EventArgs e)
         {
-            ctrlFindByFilter1.FilterChanged +=  _RefreshAllPeopleData;
-
+            ctrlFindByFilter1.FilterChanged += _RefreshAllPeopleData;
             _RefreshAllPeopleData();
         }
         private void btnAddNewPerson_Click(object sender, EventArgs e)
@@ -99,7 +129,6 @@ namespace MainDVLD.People
                 MessageBox.Show("No person selected for viewing. Please select a person from the list.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
             try
             {
                 // Get the PersonID from the selected row
@@ -183,6 +212,10 @@ namespace MainDVLD.People
 
         }
 
-        
+        private void ctrlFindByFilter1_Load(object sender, EventArgs e)
+        {
+            
+        }
     }
+
 }

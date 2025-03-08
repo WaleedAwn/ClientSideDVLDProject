@@ -1,5 +1,7 @@
 ﻿using MainDVLD.Globals;
 using MainDVLD.People.DTOs;
+using MainDVLD.Countries.DTOs;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,13 +14,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
+using MainDVLD.Countries;
+using System.Resources;
 
 namespace MainDVLD.People
 {
     public partial class frmAddEditPerson : Form
     {
+        public delegate void DataBackEventHandler(object dender, int PersonID);
+        public event DataBackEventHandler DataBack;
+
         private PersonApiClient _personService;
         private ApiResult<PersonsDTO> _personDto;
+        CountriesApiClient _countriesApiClient;
 
         public enum enMode { AddNew = 0, Update = 1 };
         private enMode _Mode;
@@ -26,13 +34,29 @@ namespace MainDVLD.People
         public frmAddEditPerson(int PersonID)
         {
             InitializeComponent();
-
+            _countriesApiClient = new CountriesApiClient();
             _personService = new PersonApiClient();
+
             _PersonID = PersonID;
             if (_PersonID == -1)
                 _Mode = enMode.AddNew;
             else
                 _Mode = enMode.Update;
+        }
+
+        private async void _FillCountriesInComboBox()
+        {
+            var _CountryResult = await _countriesApiClient.GetAllCountries();
+
+            foreach (var row in _CountryResult.Result)
+            {
+                combCountry.Items.Add(row.CountryName);
+            }
+            //_ListOFCountries = _CountryResult.Result;
+
+            combCountry.SelectedItem = "Yemen";
+            //combCountry.SelectedIndex = 0;
+
         }
 
 
@@ -47,11 +71,7 @@ namespace MainDVLD.People
         }
         public async void _LoadData()
         {
-
-            tbFirstName.Focus();
-
-
-
+            _FillCountriesInComboBox();
             if (_Mode == enMode.AddNew)
             {
                 lbAddEditPersonTitel.Text = "Add New Person ";
@@ -92,8 +112,10 @@ namespace MainDVLD.People
             }
             llRemoveImage.Visible = (_personDto.Result.ImagePath != "");
 
-            combCountry.Items.Add(_personDto.Result.NationalityCountryID.ToString());
+            var countryInfo = await _countriesApiClient.FindByCountryID(_personDto.Result.NationalityCountryID);
 
+            combCountry.SelectedIndex = combCountry.FindString(countryInfo.Result?.CountryName);
+            //combCountry.SelectedIndex = combCountry.FindString(Globals.Help.FindCountryName(_ListOFCountries, _personDto.Result.NationalityCountryID));
 
         }
 
@@ -104,9 +126,8 @@ namespace MainDVLD.People
 
             tbDateTimePicker.MaxDate = DateTime.Now;
             tbDateTimePicker.MinDate = DateTime.Today.AddYears(-18);
-
-
             _LoadData();
+
         }
 
 
@@ -145,6 +166,7 @@ namespace MainDVLD.People
                     File.Copy(selectedFilePath, newFilePath);
 
                     pbPersonImage.Load(newFilePath);
+                    pbPersonImage.Tag = -2;
 
                     pbPersonImage.ImageLocation = newFilePath;
                     //pbPersonImage.Location= newFilePath;
@@ -168,7 +190,8 @@ namespace MainDVLD.People
         {
             pbPersonImage.ImageLocation = "";
             llRemoveImage.Visible = false;
-
+            pbPersonImage.Tag = -1;
+            //pbPersonImage.Image = Properties.Resources.Male_512;
         }
 
 
@@ -193,168 +216,285 @@ namespace MainDVLD.People
             persons.Email = tbEmail.Text;
             persons.Address = tbAdress.Text;
             persons.Phone = tbPhone.Text;
-            persons.NationalityCountryID = 90;
-            persons.ImagePath = pbPersonImage.ImageLocation;
-
-
-
+            //persons.NationalityCountryID = combCountry.SelectedIndex;
+            if (pbPersonImage.ImageLocation != null)
+                persons.ImagePath = pbPersonImage.ImageLocation;
+            else
+                persons.ImagePath = "";
+           
 
 
             return persons;
         }
 
-        private async void btnSave_Click(object sender, EventArgs e)
-        {
-            _personDto.Result = SetPersonData();
+        //private async void btnSave_Click(object sender, EventArgs e)
+        //{
+        //    var _countryInfo = await _countriesApiClient.FindCountryInfoByName(combCountry.Text);
+
+        //    _personDto.Result = SetPersonData();
+        //    _personDto.Result.NationalityCountryID = _countryInfo.Result.CountryID;
+
+        //    if (_Mode == enMode.AddNew)
+        //    {
+        //        var NewPersonInfo = await _personService.AddNewPerson(_personDto.Result);
+
+        //        if (NewPersonInfo.IsSuccess)
+        //        {
+        //            _PersonID = NewPersonInfo.Result.PersonID;
+        //            DataBack?.Invoke(this, _PersonID);
+        //            MessageBox.Show("Data Saved Successfully", "Saved", MessageBoxButtons.OK);
+
+        //            MessageBox.Show($"New Person ID {_PersonID} ", "Saved", MessageBoxButtons.OK);
 
 
-            if (_Mode == enMode.AddNew)
-            {
-
-                var NewPersonInfo = await _personService.AddNewPerson(_personDto.Result);
-
-
-                if (NewPersonInfo.IsSuccess)
-                {
-                    _PersonID = NewPersonInfo.Result.PersonID;
-                    MessageBox.Show("Data Saved Successfully", "Saved", MessageBoxButtons.OK);
-
-                    MessageBox.Show($"New Person ID {_PersonID} ", "Saved", MessageBoxButtons.OK);
+        //        }
+        //        else
+        //            MessageBox.Show("Error: Person is Not  Saved ", "Error", MessageBoxButtons.OK);
 
 
-                }
-                else
-                    MessageBox.Show("Error: Person is Not  Saved ", "Error", MessageBoxButtons.OK);
+        //    }
 
 
-            }
+        //    else if (_Mode == enMode.Update)
+        //    {
+
+        //        _personDto.Result.PersonID = _PersonID;
+        //        var isUpdated = await _personService.UpdatePersonInfo(_personDto.Result.PersonID, _personDto.Result);
+
+        //        if (isUpdated.IsSuccess)
+        //        {
+        //            MessageBox.Show("Data Updated Successfully", "Saved", MessageBoxButtons.OK);
+        //        }
+        //        else
+        //            MessageBox.Show("Error: Person is Not  Updated ", "Error", MessageBoxButtons.OK);
+
+        //    }
+
+        //    _Mode = enMode.Update;
 
 
-            else if (_Mode == enMode.Update)
-            {
+        //    llRemoveImage.Visible = (_personDto.Result.ImagePath != "");
 
-                _personDto.Result.PersonID = _PersonID;
-                var isUpdated = await _personService.UpdatePersonInfo(_personDto.Result.PersonID, _personDto.Result);
-
-                if (isUpdated.IsSuccess)
-                {
-                    MessageBox.Show("Data Updated Successfully", "Saved", MessageBoxButtons.OK);
-                }
-                else
-                    MessageBox.Show("Error: Person is Not  Updated ", "Error", MessageBoxButtons.OK);
-
-            }
-
-            _Mode = enMode.Update;
-
-
-            llRemoveImage.Visible = (_personDto.Result.ImagePath != "");
-
-            _LoadData();
+        //    _LoadData();
 
 
 
-        }
+        //}
+
+
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-        private void PersonFullName_Validating(MaskedTextBox textBox, string Message, CancelEventArgs e)
-        {
-            // Regular expression to check if the text contains only letters and spaces
-            System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex("^[a-zA-Z ]+$");
 
+        }
+
+
+
+
+        // Valdation
+        private bool ValidatePersonInfo()
+        {
+            bool isValid = true;
+
+            // Validate mandatory fields
+            isValid &= ValidateTextField(tbFirstName, "First Name is required.");
+            isValid &= ValidateTextField(tbFSecondName, "Second Name is required.");
+            isValid &= ValidateTextField(tbThirdName, "Third Name is required.", true);
+            isValid &= ValidateTextField(tbLastName, "Last Name is required.");
+            isValid &= ValidateTextField(tbAdress, "Address is required.");
+            isValid &= ValidateTextField(tbNationalNumber, "National Number is required.");
+
+
+            // Validate email if provided
+            isValid &= ValidateEmailField(tbEmail, "Invalid email address.");
+
+            // Validate phone number
+            //if (tbPhone.Text.Length != 9)
+            //{
+            //    errorProvider1.SetError(tbPhone, "Phone number must be exactly 9 digits.");
+            //    tbPhone.ForeColor = SystemColors.ActiveBorder;
+            //    tbPhone.BackColor = Color.Red;
+            //    isValid = false;
+            //}
+            //else
+            //{
+            //    errorProvider1.SetError(tbPhone, "");
+            //}
+
+            // Check country selection
+            if (combCountry.SelectedItem == null || string.IsNullOrWhiteSpace(combCountry.Text))
+            {
+                errorProvider1.SetError(combCountry, "Please select a country.");
+                isValid = false;
+            }
+            else
+            {
+                errorProvider1.SetError(combCountry, "");
+            }
+
+            // Gender validation
+            if (!rbGenderMale.Checked && !rbGenderFemal.Checked)
+            {
+                errorProvider1.SetError(rbGenderMale, "Please select a gender.");
+                isValid = false;
+            }
+            else
+            {
+                errorProvider1.SetError(rbGenderMale, "");
+            }
+
+            // Optional: Validate image if provided
+            //if (!string.IsNullOrWhiteSpace(pbPersonImage.ImageLocation))
+            //{
+            //    if (!File.Exists(pbPersonImage.ImageLocation))
+            //    {
+            //        errorProvider1.SetError(pbPersonImage, "Invalid image file.");
+            //        isValid = false;
+            //    }
+            //    else
+            //    {
+            //        errorProvider1.SetError(pbPersonImage, "");
+            //    }
+            //}
+
+            return isValid;
+        }
+
+        private async void btnSave_Click(object sender, EventArgs e)
+        {
+            if (!ValidatePersonInfo())
+            {
+                MessageBox.Show("Please fill in all required fields correctly.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Populate DTO
+            var _countryInfo = await _countriesApiClient.FindCountryInfoByName(combCountry.Text);
+
+            _personDto.Result = SetPersonData();
+            _personDto.Result.NationalityCountryID = _countryInfo.Result.CountryID;
+
+            if (_Mode == enMode.AddNew)
+            {
+                var newPersonInfo = await _personService.AddNewPerson(_personDto.Result);
+                if (newPersonInfo.IsSuccess)
+                {
+                    _PersonID = newPersonInfo.Result.PersonID;
+                    DataBack?.Invoke(this, _PersonID);
+                    MessageBox.Show("Data saved successfully.", "Success", MessageBoxButtons.OK);
+                }
+                else
+                {
+                    MessageBox.Show("Error: Person data could not be saved.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else if (_Mode == enMode.Update)
+            {
+                _personDto.Result.PersonID = _PersonID;
+                var isUpdated = await _personService.UpdatePersonInfo(_personDto.Result.PersonID, _personDto.Result);
+                if (isUpdated.IsSuccess)
+                {
+                    MessageBox.Show("Data updated successfully.", "Success", MessageBoxButtons.OK);
+                }
+                else
+                {
+                    MessageBox.Show("Error: Person data could not be updated.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            _Mode = enMode.Update;
+            _LoadData();
+        }
+
+        private bool ValidateMaskedTextField(MaskedTextBox maskedTextBox, string errorMessage, bool allowEmpty = false)
+        {
+            if (string.IsNullOrWhiteSpace(maskedTextBox.Text))
+            {
+                if (!allowEmpty)
+                {
+                    errorProvider1.SetError(maskedTextBox, errorMessage);
+                    return false;
+                }
+            }
+            else
+            {
+                errorProvider1.SetError(maskedTextBox, "");
+            }
+            return true;
+        }
+
+        private bool ValidateTextField(TextBox textBox, string errorMessage, bool allowEmpty = false)
+        {
             if (string.IsNullOrWhiteSpace(textBox.Text))
             {
-                //e.Cancel = true;
-                errorProvider1.SetError(textBox, Message);
-            }
-            else if (!regex.IsMatch(textBox.Text)) // Check if text contains only letters
-            {
-                //e.Cancel = true;
-                errorProvider1.SetError(textBox, "Only letters and spaces are allowed.");
+                if (!allowEmpty)
+                {
+                    errorProvider1.SetError(textBox, errorMessage);
+                    return false;
+                }
             }
             else
             {
-                e.Cancel = false;
                 errorProvider1.SetError(textBox, "");
             }
+            return true;
         }
-        private void PersonThirdName_Validating(MaskedTextBox textBox, string Message, CancelEventArgs e)
-        {
-            // Regular expression to check if the text contains only letters and spaces
-            System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex("^[a-zA-Z ]+$");
 
-            if (!regex.IsMatch(textBox.Text)) // Check if text contains only letters
+        private bool ValidateEmailField(TextBox textBox, string errorMessage)
+        {
+            if (string.IsNullOrWhiteSpace(textBox.Text)) return true; // Allow empty email
+            var emailRegex = new System.Text.RegularExpressions.Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+            if (!emailRegex.IsMatch(textBox.Text))
             {
-                //e.Cancel = true;
-                errorProvider1.SetError(textBox, "Only letters and spaces are allowed.");
+                errorProvider1.SetError(textBox, errorMessage);
+                return false;
+            }
+            errorProvider1.SetError(textBox, "");
+            return true;
+        }
+
+
+        private void tbPhone_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                errorProvider1.SetError((TextBox)sender, "You should only enter numbers.");
+                System.Media.SystemSounds.Beep.Play();
+                e.Handled = true;
             }
             else
             {
-                e.Cancel = false;
-                errorProvider1.SetError(textBox, "");
+                errorProvider1.Clear();
             }
-
-
-
-        }
-
-
-        private void tbFirstName_Validating(object sender, CancelEventArgs e)
-        {
-            PersonFullName_Validating((MaskedTextBox)sender, "^Required.FirsName Should Not be Empty", e);
-
-        }
-
-        private void tbFSecondName_Validating(object sender, CancelEventArgs e)
-        {
-            PersonFullName_Validating((MaskedTextBox)sender, "^Required.SecondName Should Not be Empty", e);
-
-        }
-
-        private void tbThirdName_Validating(object sender, CancelEventArgs e)
-        {
-
-            PersonThirdName_Validating((MaskedTextBox)sender, "", e);
-
-        }
-
-        private void tbLastName_Validating(object sender, CancelEventArgs e)
-        {
-            PersonFullName_Validating((MaskedTextBox)sender, "^Required.LastName Should Not be Empty", e);
-
-
         }
 
         private void tbPhone_Validating(object sender, CancelEventArgs e)
         {
-            // Cast the sender to a TextBox (or MaskedTextBox if that's the control type)
             var textBox = sender as TextBox;
-
-            // Regular expression to allow only numbers and specific symbols (+, -, .)
-            System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"^[0-9+\-\.]+$");
 
             if (string.IsNullOrWhiteSpace(textBox.Text))
             {
-                //e.Cancel = true;
                 errorProvider1.SetError(textBox, "Phone number cannot be empty.");
+                e.Cancel = true;
             }
-            else if (!regex.IsMatch(textBox.Text)) // Check if input matches the allowed characters
-            {
-                //e.Cancel = true;
-                errorProvider1.SetError(textBox, "Only numbers and symbols (+, -, .) are allowed.");
-            }
+            //else if (textBox.Text.Length != 9)
+            //{
+            //    errorProvider1.SetError(textBox, "Phone number must be exactly 9 digits.");
+            //    e.Cancel = true;
+            //}
             else
             {
-                e.Cancel = false;
                 errorProvider1.SetError(textBox, "");
             }
         }
 
-        private void tbThirdName_TextChanged(object sender, EventArgs e)
+        private void tbPhone_TextChanged(object sender, EventArgs e)
         {
-           
+            tbPhone.BackColor = SystemColors.Window;
+
+
         }
+
+        
     }
 }

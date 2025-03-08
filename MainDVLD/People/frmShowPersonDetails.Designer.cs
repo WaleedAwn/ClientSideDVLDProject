@@ -47,6 +47,7 @@
             // 
             // ctrlPersonCard1
             // 
+            ctrlPersonCard1.BorderStyle = BorderStyle.FixedSingle;
             ctrlPersonCard1.Location = new Point(21, 151);
             ctrlPersonCard1.Name = "ctrlPersonCard1";
             ctrlPersonCard1.Size = new Size(1066, 425);

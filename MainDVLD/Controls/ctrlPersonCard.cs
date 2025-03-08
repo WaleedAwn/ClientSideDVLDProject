@@ -20,21 +20,22 @@ namespace MainDVLD
         private ApiResult<PersonsDTO> _apiResult;
         private PersonApiClient _personApiClient;
 
-      public  int _personId;
+         public  int _personId=-1;
         public ctrlPersonCard()
         {
             InitializeComponent();
             _apiResult = new ApiResult<PersonsDTO>();
             _personApiClient = new PersonApiClient();
+
+        
+            
         }
 
 
-
-        private void _FillPersonInfo()
+        private async void _FillPersonInfo()        
         {
-
-
             _personId = _apiResult.Result.PersonID;
+            linlEditPerson.Enabled = true;
 
             lbPersonID.Text = _apiResult.Result.PersonID.ToString();
             lbNationalNo.Text = _apiResult.Result.NationalNo;
@@ -46,12 +47,40 @@ namespace MainDVLD
 
             lbDateOfBrith.Text = GlobalFunctions.FormattedDateOfBirth(_apiResult.Result.DateOfBirth);
             lbPhone.Text = _apiResult.Result.Phone.ToString();
-            lbCountry.Text = _apiResult.Result.NationalityCountryID.ToString();
+           var countryResult =  await Countries.CountriesApiClient.FindByCountryIDstatic(_apiResult.Result.NationalityCountryID);
+            lbCountry.Text = countryResult.Result.CountryName;
+            
             if (_apiResult.Result.ImagePath != "")
             {
-
                 pbPersonImage.Load(_apiResult.Result.ImagePath);
             }
+
+
+
+        }
+
+        private void _ResetPersonInfo()
+        {
+            _personId = -1;
+            linlEditPerson.Enabled = false;
+
+            string empetyValue = "???";
+
+            lbPersonID.Text = empetyValue;
+            lbNationalNo.Text = empetyValue;
+            lbPersonName.Text = empetyValue;
+            lbgender.Text = empetyValue;
+            lbEmail.Text = empetyValue;
+            lbAdress.Text = empetyValue;
+
+            lbDateOfBrith.Text = empetyValue;
+            lbPhone.Text = empetyValue;
+            lbCountry.Text = empetyValue;
+
+            //pbPersonImage.Load();
+
+
+           
 
 
 
@@ -60,15 +89,24 @@ namespace MainDVLD
 
         public async Task LoadPersoneData(int personID)
         {
+            if (personID==-1)
+            {
+                _ResetPersonInfo();
+                return;
+            }
+
             _apiResult = await _personApiClient.FindByPersonID(personID);
 
-            if (_apiResult != null)
+            if (_apiResult.Result != null )
             {
                 _FillPersonInfo();
+               _personId = personID;
+                linlEditPerson.Enabled = true;
 
             }
             else
             {
+                _ResetPersonInfo();
                 return;
             }
 
@@ -77,17 +115,27 @@ namespace MainDVLD
         }
 
 
-        private void gbctrlPersonCard_Enter_1(object sender, EventArgs e)
+      
+
+     
+
+        private async void linlEditPerson_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
-
-        }
-
-        private void linlEditPerson_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Form form = new frmAddEditPerson(_personId);
+            frmAddEditPerson form = new frmAddEditPerson(_personId);
             form.ShowDialog();
+
+            await LoadPersoneData(_personId);
            
         }
+
+
+
+
+
+
+    
+    
+    
     }
+
 }

@@ -103,11 +103,11 @@
             gbctrlPersonCard.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             gbctrlPersonCard.Location = new Point(3, 3);
             gbctrlPersonCard.Name = "gbctrlPersonCard";
-            gbctrlPersonCard.Size = new Size(1053, 414);
+            gbctrlPersonCard.Size = new Size(1038, 403);
             gbctrlPersonCard.TabIndex = 2;
             gbctrlPersonCard.TabStop = false;
             gbctrlPersonCard.Text = "Person Informaation";
-            gbctrlPersonCard.Enter += gbctrlPersonCard_Enter_1;
+           
             // 
             // pbPersonImage
             // 
@@ -123,7 +123,7 @@
             // 
             lbCountry.AutoSize = true;
             lbCountry.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lbCountry.Location = new Point(574, 292);
+            lbCountry.Location = new Point(606, 301);
             lbCountry.Name = "lbCountry";
             lbCountry.Size = new Size(0, 28);
             lbCountry.TabIndex = 27;
@@ -132,7 +132,7 @@
             // 
             lbPhone.AutoSize = true;
             lbPhone.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lbPhone.Location = new Point(576, 236);
+            lbPhone.Location = new Point(608, 245);
             lbPhone.Name = "lbPhone";
             lbPhone.Size = new Size(0, 28);
             lbPhone.TabIndex = 26;
@@ -141,7 +141,7 @@
             // 
             lbDateOfBrith.AutoSize = true;
             lbDateOfBrith.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lbDateOfBrith.Location = new Point(586, 183);
+            lbDateOfBrith.Location = new Point(618, 192);
             lbDateOfBrith.Name = "lbDateOfBrith";
             lbDateOfBrith.Size = new Size(0, 28);
             lbDateOfBrith.TabIndex = 25;
@@ -204,7 +204,7 @@
             // pictureBox6
             // 
             pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
-            pictureBox6.Location = new Point(534, 286);
+            pictureBox6.Location = new Point(566, 295);
             pictureBox6.Name = "pictureBox6";
             pictureBox6.Size = new Size(34, 34);
             pictureBox6.TabIndex = 18;
@@ -213,7 +213,7 @@
             // pictureBox5
             // 
             pictureBox5.Image = (Image)resources.GetObject("pictureBox5.Image");
-            pictureBox5.Location = new Point(536, 236);
+            pictureBox5.Location = new Point(568, 245);
             pictureBox5.Name = "pictureBox5";
             pictureBox5.Size = new Size(34, 34);
             pictureBox5.TabIndex = 17;
@@ -222,7 +222,7 @@
             // pictureBox4
             // 
             pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
-            pictureBox4.Location = new Point(536, 182);
+            pictureBox4.Location = new Point(568, 191);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(34, 34);
             pictureBox4.TabIndex = 16;
@@ -276,6 +276,7 @@
             // linlEditPerson
             // 
             linlEditPerson.AutoSize = true;
+            linlEditPerson.Enabled = false;
             linlEditPerson.Location = new Point(821, 71);
             linlEditPerson.Name = "linlEditPerson";
             linlEditPerson.Size = new Size(197, 32);
@@ -288,7 +289,7 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            label9.Location = new Point(412, 286);
+            label9.Location = new Point(444, 295);
             label9.Name = "label9";
             label9.Size = new Size(109, 30);
             label9.TabIndex = 8;
@@ -298,7 +299,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            label8.Location = new Point(426, 232);
+            label8.Location = new Point(458, 241);
             label8.Name = "label8";
             label8.Size = new Size(90, 30);
             label8.TabIndex = 7;
@@ -308,7 +309,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            label7.Location = new Point(358, 180);
+            label7.Location = new Point(390, 189);
             label7.Name = "label7";
             label7.Size = new Size(162, 30);
             label7.TabIndex = 6;
@@ -378,9 +379,10 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            BorderStyle = BorderStyle.FixedSingle;
             Controls.Add(gbctrlPersonCard);
             Name = "ctrlPersonCard";
-            Size = new Size(1062, 407);
+            Size = new Size(1043, 409);
             gbctrlPersonCard.ResumeLayout(false);
             gbctrlPersonCard.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pbPersonImage).EndInit();

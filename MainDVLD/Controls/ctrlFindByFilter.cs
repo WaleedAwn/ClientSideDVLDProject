@@ -20,8 +20,13 @@ namespace MainDVLD.Controls
     public partial class ctrlFindByFilter : UserControl
     {
 
+        private PersonApiClient _personApiClient;
+       
+
         public delegate void FilterChangedEventHandler(string columnName, object searchValue);
         public event FilterChangedEventHandler FilterChanged;
+
+  
 
         //string _columnName = "";
         //object _searchValue;
@@ -45,51 +50,17 @@ namespace MainDVLD.Controls
 
         public ctrlFindByFilter()
         {
+            _personApiClient=new PersonApiClient();
+           
             InitializeComponent();
-
         }
 
 
-        private void ctrlFindByFilter_Load(object sender, EventArgs e)
+        private async void ctrlFindByFilter_Load(object sender, EventArgs e)
         {
             cbFilterPersonData.SelectedIndex = 0;
+          
         }
-
-
-        //private void SetFilterInfo()
-        //{
-
-        //     tbSearchValue.Visible = cbFilterPersonData.SelectedIndex != 0;
-        //    _columnName = cbFilterPersonData.Text;
-
-        //    switch (cbFilterPersonData.SelectedIndex)
-        //    {
-        //        case 0: // No filter
-        //            _columnName = "";
-        //            tbSearchValue.Clear();
-        //            _searchValue = null;
-        //            break;
-
-        //        case 1: // Integer-based filters (e.g., PersonID)
-        //        case 8:
-        //        case 11:
-        //            if (int.TryParse(tbSearchValue.Text, out int intValue))
-        //            {
-        //                _searchValue = intValue;
-        //            }
-        //            else
-        //            {
-        //                _searchValue = null; // Reset if invalid input
-        //                //ShowValidationError("Please enter a valid integer.");
-        //            }
-        //            break;
-
-        //        default: // String-based filters
-        //            _searchValue = tbSearchValue.Text;
-        //            break;
-        //    }
-
-        //}
 
 
         string GetColumnName(FilterValue filterenum)
@@ -118,37 +89,32 @@ namespace MainDVLD.Controls
 
         }
 
-        private void cbFilterPersonData_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //SetFilterInfo();
-
-
-            tbSearchValue.Visible = cbFilterPersonData.SelectedIndex != 0;
-
-        }
         object GetTextBoxValue(TextBox textBox)
         {
             if (cbFilterPersonData.SelectedIndex == 0)
             {
+              
                 return "";
             }
+
 
             if (cbFilterPersonData.SelectedIndex == 1 || cbFilterPersonData.SelectedIndex == 11)
             {
                 if (int.TryParse(textBox.Text, out int intValue))
-                   {
-                    errorProvider1.SetError(tbSearchValue,"You Should Enter Numbers");
-
+                {
                     return intValue;
                 }
 
                 return "";
 
             }
+
             if (cbFilterPersonData.SelectedIndex == 8)
             {
-                if (short.TryParse(textBox.Text, out short shortValue))
-                    return shortValue;
+                if (textBox.Text.ToLower() == "male" || textBox.Text.ToLower() == "0")
+                    return (short)0;
+                else if (textBox.Text.ToLower() == "female" || textBox.Text.ToLower() == "1")
+                    return (short)1;
 
                 return "";
             }
@@ -158,12 +124,60 @@ namespace MainDVLD.Controls
 
             return textBox.Text;
         }
-        private void tbSearchValue_TextChanged(object sender, EventArgs e)
+
+
+        private void tbSearchValue_TextChanged_1(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(tbSearchValue.Text) || cbFilterPersonData.SelectedIndex==0) { 
+              FilterChanged?.Invoke("", null);
+            }
+            else
             FilterChanged?.Invoke(GetColumnName((FilterValue)cbFilterPersonData.SelectedIndex), GetTextBoxValue((TextBox)sender));
+        
+        
         }
 
-       
+        private void cbFilterPersonData_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            
+            tbSearchValue.Visible = cbFilterPersonData.SelectedIndex != 0;
+            tbSearchValue.Clear();
+            
+
+        }
+
+        private void tbSearchValue_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            if (cbFilterPersonData.SelectedIndex == 1 || cbFilterPersonData.SelectedIndex == 11)
+            {
+
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                {
+
+                    errorProvider1.SetError(tbSearchValue, "You should only enter numbers.");
+
+
+                    System.Media.SystemSounds.Beep.Play();
+
+
+                    e.Handled = true;
+                }
+                else
+                {
+                    errorProvider1.Clear();
+                }
+            }
+
+            else
+            {
+                errorProvider1.Clear();
+            }
+
+        }
+    
+    
+     
     }
 
 

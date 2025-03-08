@@ -1,0 +1,48 @@
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.frmLoginScreen.resources
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.csproj.GenerateResource.cache
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.GeneratedMSBuildEditorConfig.editorconfig
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.AssemblyInfoInputs.cache
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.AssemblyInfo.cs
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.csproj.CoreCompileInputs.cache
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.sourcelink.json
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.Users.frmShowUserDetails.resources
+D:\Full Stack\DVLD\DVLDMainCopyFaild\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.frmLoginScreen.resources
+D:\Full Stack\DVLD\DVLDMainCopyFaild\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.Users.frmShowUserDetails.resources
+D:\Full Stack\DVLD\DVLDMainCopyFaild\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.csproj.GenerateResource.cache
+D:\Full Stack\DVLD\DVLDMainCopyFaild\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.GeneratedMSBuildEditorConfig.editorconfig
+D:\Full Stack\DVLD\DVLDMainCopyFaild\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.AssemblyInfoInputs.cache
+D:\Full Stack\DVLD\DVLDMainCopyFaild\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.AssemblyInfo.cs
+D:\Full Stack\DVLD\DVLDMainCopyFaild\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.csproj.CoreCompileInputs.cache
+D:\Full Stack\DVLD\DVLDMainCopyFaild\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.sourcelink.json
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.ApplicationTypes.frmEditApplicationTypes.resources
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.ApplicationTypes.frmManageApplicationTypes.resources
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.Controls.ctrlFindByFilter.resources
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.ctrlPersonCard.resources
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.Controls.ctrlPersonCardWithFilter.resources
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.frmMain.resources
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.People.frmAddEditPerson.resources
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.People.frmManagePeople.resources
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.Users.frmChangeUserPassword.resources
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.Users.frmManageUsers.resources
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.Users.frmAddEditUser.resources
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.dll
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\refint\MainDVLD.dll
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.pdb
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.Properties.Resources.resources
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\bin\Debug\net8.0-windows\MainDVLD.exe
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\bin\Debug\net8.0-windows\MainDVLD.deps.json
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\bin\Debug\net8.0-windows\MainDVLD.runtimeconfig.json
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\bin\Debug\net8.0-windows\MainDVLD.dll
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\bin\Debug\net8.0-windows\MainDVLD.pdb
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.genruntimeconfig.cache
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\ref\MainDVLD.dll
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.People.frmShowPersonDetails.resources
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\bin\Debug\net8.0-windows\MaterialSkin.dll
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.csproj.AssemblyReference.cache
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\obj\Debug\net8.0-windows\MainDVLD.csproj.Up2Date
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\bin\Debug\net8.0-windows\Bunifu.Licensing.dll
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\bin\Debug\net8.0-windows\Bunifu.UI.WinForms.dll
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\bin\Debug\net8.0-windows\System.CodeDom.dll
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\bin\Debug\net8.0-windows\System.Management.dll
+D:\AbouHadhoud Courses\DVLD Project Course19 API\ClientSideDVLDProject\MainDVLD\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Management.dll

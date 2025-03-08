@@ -33,10 +33,10 @@
             lbAddEditPersonTitel = new Label();
             label1 = new Label();
             panel1 = new Panel();
-            tbLastName = new MaskedTextBox();
-            tbThirdName = new MaskedTextBox();
-            tbFSecondName = new MaskedTextBox();
-            tbFirstName = new MaskedTextBox();
+            tbFSecondName = new TextBox();
+            tbThirdName = new TextBox();
+            tbLastName = new TextBox();
+            tbFirstName = new TextBox();
             label13 = new Label();
             label12 = new Label();
             label11 = new Label();
@@ -120,9 +120,9 @@
             // panel1
             // 
             panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Controls.Add(tbLastName);
-            panel1.Controls.Add(tbThirdName);
             panel1.Controls.Add(tbFSecondName);
+            panel1.Controls.Add(tbThirdName);
+            panel1.Controls.Add(tbLastName);
             panel1.Controls.Add(tbFirstName);
             panel1.Controls.Add(label13);
             panel1.Controls.Add(label12);
@@ -164,43 +164,33 @@
             panel1.Size = new Size(1209, 450);
             panel1.TabIndex = 3;
             // 
-            // tbLastName
+            // tbFSecondName
             // 
-            tbLastName.BeepOnError = true;
-            tbLastName.Location = new Point(978, 62);
-            tbLastName.Name = "tbLastName";
-            tbLastName.Size = new Size(183, 31);
-            tbLastName.TabIndex = 68;
-            tbLastName.Validating += tbLastName_Validating;
+            tbFSecondName.Location = new Point(468, 56);
+            tbFSecondName.Name = "tbFSecondName";
+            tbFSecondName.Size = new Size(186, 31);
+            tbFSecondName.TabIndex = 72;
             // 
             // tbThirdName
             // 
-            tbThirdName.BeepOnError = true;
-            tbThirdName.Location = new Point(723, 59);
+            tbThirdName.Location = new Point(717, 56);
             tbThirdName.Name = "tbThirdName";
-            tbThirdName.Size = new Size(194, 31);
-            tbThirdName.TabIndex = 67;
-            tbThirdName.TextChanged += tbThirdName_TextChanged;
-            tbThirdName.Validating += tbThirdName_Validating;
+            tbThirdName.Size = new Size(186, 31);
+            tbThirdName.TabIndex = 71;
             // 
-            // tbFSecondName
+            // tbLastName
             // 
-            tbFSecondName.BeepOnError = true;
-            tbFSecondName.Location = new Point(486, 56);
-            tbFSecondName.Name = "tbFSecondName";
-            tbFSecondName.Size = new Size(183, 31);
-            tbFSecondName.TabIndex = 66;
-            tbFSecondName.Validating += tbFSecondName_Validating;
+            tbLastName.Location = new Point(972, 56);
+            tbLastName.Name = "tbLastName";
+            tbLastName.Size = new Size(186, 31);
+            tbLastName.TabIndex = 70;
             // 
             // tbFirstName
             // 
-            tbFirstName.BeepOnError = true;
-            tbFirstName.Culture = new System.Globalization.CultureInfo("en-US-POSIX");
-            tbFirstName.Location = new Point(250, 59);
+            tbFirstName.Location = new Point(244, 56);
             tbFirstName.Name = "tbFirstName";
-            tbFirstName.Size = new Size(183, 31);
-            tbFirstName.TabIndex = 43;
-            tbFirstName.Validating += tbFirstName_Validating;
+            tbFirstName.Size = new Size(186, 31);
+            tbFirstName.TabIndex = 69;
             // 
             // label13
             // 
@@ -275,19 +265,21 @@
             rbGenderFemal.Name = "rbGenderFemal";
             rbGenderFemal.Size = new Size(108, 34);
             rbGenderFemal.TabIndex = 60;
-            rbGenderFemal.TabStop = true;
+            rbGenderFemal.Tag = "1";
             rbGenderFemal.Text = "Female";
             rbGenderFemal.UseVisualStyleBackColor = true;
             // 
             // rbGenderMale
             // 
             rbGenderMale.AutoSize = true;
+            rbGenderMale.Checked = true;
             rbGenderMale.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             rbGenderMale.Location = new Point(227, 178);
             rbGenderMale.Name = "rbGenderMale";
             rbGenderMale.Size = new Size(86, 34);
             rbGenderMale.TabIndex = 41;
             rbGenderMale.TabStop = true;
+            rbGenderMale.Tag = "0";
             rbGenderMale.Text = "Male";
             rbGenderMale.UseVisualStyleBackColor = true;
             // 
@@ -302,6 +294,7 @@
             // 
             // pbPersonImage
             // 
+            pbPersonImage.BorderStyle = BorderStyle.FixedSingle;
             pbPersonImage.Image = (Image)resources.GetObject("pbPersonImage.Image");
             pbPersonImage.Location = new Point(972, 112);
             pbPersonImage.Name = "pbPersonImage";
@@ -309,6 +302,7 @@
             pbPersonImage.SizeMode = PictureBoxSizeMode.Zoom;
             pbPersonImage.TabIndex = 58;
             pbPersonImage.TabStop = false;
+            pbPersonImage.Tag = "-1";
             // 
             // tbPhone
             // 
@@ -316,6 +310,8 @@
             tbPhone.Name = "tbPhone";
             tbPhone.Size = new Size(186, 31);
             tbPhone.TabIndex = 57;
+            tbPhone.TextChanged += tbPhone_TextChanged;
+            tbPhone.KeyPress += tbPhone_KeyPress;
             tbPhone.Validating += tbPhone_Validating;
             // 
             // tbDateTimePicker
@@ -700,9 +696,9 @@
         private Label label12;
         private Label label11;
         private Label label10;
-        private MaskedTextBox tbFirstName;
-        private MaskedTextBox tbFSecondName;
-        private MaskedTextBox tbThirdName;
-        private MaskedTextBox tbLastName;
+        private TextBox tbFirstName;
+        private TextBox tbFSecondName;
+        private TextBox tbThirdName;
+        private TextBox tbLastName;
     }
 }

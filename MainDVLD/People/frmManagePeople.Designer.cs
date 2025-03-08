@@ -31,30 +31,14 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmManagePeople));
             dgvListAllPeople = new DataGridView();
-            colPersonID = new DataGridViewTextBoxColumn();
-            colNationalNo = new DataGridViewTextBoxColumn();
-            colFirstName = new DataGridViewTextBoxColumn();
-            colSecondName = new DataGridViewTextBoxColumn();
-            colThirdName = new DataGridViewTextBoxColumn();
-            colLastName = new DataGridViewTextBoxColumn();
-            colGender = new DataGridViewTextBoxColumn();
-            colDateOFBirth = new DataGridViewTextBoxColumn();
-            colNationality = new DataGridViewTextBoxColumn();
-            colPhone = new DataGridViewTextBoxColumn();
-            colEmail = new DataGridViewTextBoxColumn();
             contextMenuStrip1 = new ContextMenuStrip(components);
-            toolStripSeparator1 = new ToolStripSeparator();
             ShowDetailesToolStripMenuItem = new ToolStripMenuItem();
-            toolStripSeparator2 = new ToolStripSeparator();
             AddNewToolStripMenuItem = new ToolStripMenuItem();
-            toolStripSeparator3 = new ToolStripSeparator();
             EditToolStripMenuItem = new ToolStripMenuItem();
-            toolStripSeparator4 = new ToolStripSeparator();
             deleteToolStripMenuItem1 = new ToolStripMenuItem();
             toolStripSeparator5 = new ToolStripSeparator();
-            doAppoitmentToolStripMenuItem = new ToolStripMenuItem();
-            addASPatientToolStripMenuItem = new ToolStripMenuItem();
-            addASDoctorToolStripMenuItem = new ToolStripMenuItem();
+            SendEmailoolStripMenuItem = new ToolStripMenuItem();
+            phoneCallToolStripMenuItem = new ToolStripMenuItem();
             lbAddEditPerson = new Label();
             pictureBox1 = new PictureBox();
             btnClose = new Button();
@@ -72,13 +56,10 @@
             // 
             dgvListAllPeople.AllowUserToAddRows = false;
             dgvListAllPeople.AllowUserToDeleteRows = false;
-            dgvListAllPeople.AllowUserToOrderColumns = true;
             dgvListAllPeople.BackgroundColor = Color.White;
-            dgvListAllPeople.ClipboardCopyMode = DataGridViewClipboardCopyMode.Disable;
             dgvListAllPeople.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvListAllPeople.Columns.AddRange(new DataGridViewColumn[] { colPersonID, colNationalNo, colFirstName, colSecondName, colThirdName, colLastName, colGender, colDateOFBirth, colNationality, colPhone, colEmail });
             dgvListAllPeople.ContextMenuStrip = contextMenuStrip1;
-            dgvListAllPeople.Location = new Point(20, 384);
+            dgvListAllPeople.Location = new Point(20, 383);
             dgvListAllPeople.Margin = new Padding(2);
             dgvListAllPeople.Name = "dgvListAllPeople";
             dgvListAllPeople.ReadOnly = true;
@@ -87,175 +68,66 @@
             dgvListAllPeople.Size = new Size(1738, 307);
             dgvListAllPeople.TabIndex = 3;
             // 
-            // colPersonID
-            // 
-            colPersonID.HeaderText = "Person ID";
-            colPersonID.MinimumWidth = 8;
-            colPersonID.Name = "colPersonID";
-            colPersonID.ReadOnly = true;
-            colPersonID.Width = 150;
-            // 
-            // colNationalNo
-            // 
-            colNationalNo.HeaderText = "National No.";
-            colNationalNo.MinimumWidth = 8;
-            colNationalNo.Name = "colNationalNo";
-            colNationalNo.ReadOnly = true;
-            colNationalNo.Width = 150;
-            // 
-            // colFirstName
-            // 
-            colFirstName.HeaderText = "First Name";
-            colFirstName.MinimumWidth = 8;
-            colFirstName.Name = "colFirstName";
-            colFirstName.ReadOnly = true;
-            colFirstName.Width = 150;
-            // 
-            // colSecondName
-            // 
-            colSecondName.HeaderText = "Second Name";
-            colSecondName.MinimumWidth = 8;
-            colSecondName.Name = "colSecondName";
-            colSecondName.ReadOnly = true;
-            colSecondName.Width = 150;
-            // 
-            // colThirdName
-            // 
-            colThirdName.HeaderText = "Third Name";
-            colThirdName.MinimumWidth = 8;
-            colThirdName.Name = "colThirdName";
-            colThirdName.ReadOnly = true;
-            colThirdName.Width = 150;
-            // 
-            // colLastName
-            // 
-            colLastName.HeaderText = "Last Name";
-            colLastName.MinimumWidth = 8;
-            colLastName.Name = "colLastName";
-            colLastName.ReadOnly = true;
-            colLastName.Width = 150;
-            // 
-            // colGender
-            // 
-            colGender.HeaderText = "Gender";
-            colGender.MinimumWidth = 8;
-            colGender.Name = "colGender";
-            colGender.ReadOnly = true;
-            colGender.Width = 150;
-            // 
-            // colDateOFBirth
-            // 
-            colDateOFBirth.HeaderText = "Date OF Birth";
-            colDateOFBirth.MinimumWidth = 8;
-            colDateOFBirth.Name = "colDateOFBirth";
-            colDateOFBirth.ReadOnly = true;
-            colDateOFBirth.Width = 150;
-            // 
-            // colNationality
-            // 
-            colNationality.HeaderText = "Nationality";
-            colNationality.MinimumWidth = 8;
-            colNationality.Name = "colNationality";
-            colNationality.ReadOnly = true;
-            colNationality.Width = 150;
-            // 
-            // colPhone
-            // 
-            colPhone.HeaderText = "Phone Number";
-            colPhone.MinimumWidth = 8;
-            colPhone.Name = "colPhone";
-            colPhone.ReadOnly = true;
-            colPhone.Width = 150;
-            // 
-            // colEmail
-            // 
-            colEmail.HeaderText = "Email";
-            colEmail.MinimumWidth = 8;
-            colEmail.Name = "colEmail";
-            colEmail.ReadOnly = true;
-            colEmail.Width = 150;
-            // 
             // contextMenuStrip1
             // 
-            contextMenuStrip1.ImageScalingSize = new Size(24, 24);
-            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { toolStripSeparator1, ShowDetailesToolStripMenuItem, toolStripSeparator2, AddNewToolStripMenuItem, toolStripSeparator3, EditToolStripMenuItem, toolStripSeparator4, deleteToolStripMenuItem1, toolStripSeparator5, doAppoitmentToolStripMenuItem, addASPatientToolStripMenuItem, addASDoctorToolStripMenuItem });
+            contextMenuStrip1.BackColor = SystemColors.ButtonHighlight;
+            contextMenuStrip1.BackgroundImageLayout = ImageLayout.None;
+            contextMenuStrip1.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            contextMenuStrip1.ImageScalingSize = new Size(27, 27);
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { ShowDetailesToolStripMenuItem, AddNewToolStripMenuItem, EditToolStripMenuItem, deleteToolStripMenuItem1, toolStripSeparator5, SendEmailoolStripMenuItem, phoneCallToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.RenderMode = ToolStripRenderMode.System;
-            contextMenuStrip1.Size = new Size(222, 258);
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(218, 6);
+            contextMenuStrip1.RenderMode = ToolStripRenderMode.Professional;
+            contextMenuStrip1.Size = new Size(236, 226);
             // 
             // ShowDetailesToolStripMenuItem
             // 
             ShowDetailesToolStripMenuItem.Image = (Image)resources.GetObject("ShowDetailesToolStripMenuItem.Image");
             ShowDetailesToolStripMenuItem.Name = "ShowDetailesToolStripMenuItem";
-            ShowDetailesToolStripMenuItem.Size = new Size(221, 32);
+            ShowDetailesToolStripMenuItem.Size = new Size(235, 36);
             ShowDetailesToolStripMenuItem.Text = "Show Details";
             ShowDetailesToolStripMenuItem.Click += ShowDetailesToolStripMenuItem_Click;
-            // 
-            // toolStripSeparator2
-            // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(218, 6);
             // 
             // AddNewToolStripMenuItem
             // 
             AddNewToolStripMenuItem.Image = (Image)resources.GetObject("AddNewToolStripMenuItem.Image");
             AddNewToolStripMenuItem.Name = "AddNewToolStripMenuItem";
-            AddNewToolStripMenuItem.Size = new Size(221, 32);
+            AddNewToolStripMenuItem.Size = new Size(235, 36);
             AddNewToolStripMenuItem.Text = "Add new Person";
-            // 
-            // toolStripSeparator3
-            // 
-            toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(218, 6);
             // 
             // EditToolStripMenuItem
             // 
             EditToolStripMenuItem.Image = (Image)resources.GetObject("EditToolStripMenuItem.Image");
             EditToolStripMenuItem.Name = "EditToolStripMenuItem";
-            EditToolStripMenuItem.Size = new Size(221, 32);
+            EditToolStripMenuItem.Size = new Size(235, 36);
             EditToolStripMenuItem.Text = "Edit Info";
             EditToolStripMenuItem.Click += EditToolStripMenuItem_Click;
-            // 
-            // toolStripSeparator4
-            // 
-            toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new Size(218, 6);
             // 
             // deleteToolStripMenuItem1
             // 
             deleteToolStripMenuItem1.Image = (Image)resources.GetObject("deleteToolStripMenuItem1.Image");
             deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
-            deleteToolStripMenuItem1.Size = new Size(221, 32);
+            deleteToolStripMenuItem1.Size = new Size(235, 36);
             deleteToolStripMenuItem1.Text = "Delete";
             deleteToolStripMenuItem1.Click += deleteToolStripMenuItem1_Click;
             // 
             // toolStripSeparator5
             // 
             toolStripSeparator5.Name = "toolStripSeparator5";
-            toolStripSeparator5.Size = new Size(218, 6);
+            toolStripSeparator5.Size = new Size(232, 6);
             // 
-            // doAppoitmentToolStripMenuItem
+            // SendEmailoolStripMenuItem
             // 
-            doAppoitmentToolStripMenuItem.Name = "doAppoitmentToolStripMenuItem";
-            doAppoitmentToolStripMenuItem.Size = new Size(221, 32);
-            doAppoitmentToolStripMenuItem.Text = " ";
+            SendEmailoolStripMenuItem.Image = (Image)resources.GetObject("SendEmailoolStripMenuItem.Image");
+            SendEmailoolStripMenuItem.Name = "SendEmailoolStripMenuItem";
+            SendEmailoolStripMenuItem.Size = new Size(235, 36);
+            SendEmailoolStripMenuItem.Text = "Send Email";
             // 
-            // addASPatientToolStripMenuItem
+            // phoneCallToolStripMenuItem
             // 
-            addASPatientToolStripMenuItem.Name = "addASPatientToolStripMenuItem";
-            addASPatientToolStripMenuItem.Size = new Size(221, 32);
-            addASPatientToolStripMenuItem.Text = " ";
-            // 
-            // addASDoctorToolStripMenuItem
-            // 
-            addASDoctorToolStripMenuItem.Name = "addASDoctorToolStripMenuItem";
-            addASDoctorToolStripMenuItem.Size = new Size(221, 32);
-            addASDoctorToolStripMenuItem.Text = " ";
+            phoneCallToolStripMenuItem.Image = (Image)resources.GetObject("phoneCallToolStripMenuItem.Image");
+            phoneCallToolStripMenuItem.Name = "phoneCallToolStripMenuItem";
+            phoneCallToolStripMenuItem.Size = new Size(235, 36);
+            phoneCallToolStripMenuItem.Text = "Phon Call";
             // 
             // lbAddEditPerson
             // 
@@ -330,10 +202,11 @@
             // 
             // ctrlFindByFilter1
             // 
-            ctrlFindByFilter1.Location = new Point(20, 319);
+            ctrlFindByFilter1.Location = new Point(20, 294);
             ctrlFindByFilter1.Name = "ctrlFindByFilter1";
-            ctrlFindByFilter1.Size = new Size(638, 60);
+            ctrlFindByFilter1.Size = new Size(683, 66);
             ctrlFindByFilter1.TabIndex = 46;
+            ctrlFindByFilter1.Load += ctrlFindByFilter1_Load;
             // 
             // frmManagePeople
             // 
@@ -365,34 +238,18 @@
         private DataGridView dgvListAllPeople;
         private Label lbAddEditPerson;
         private PictureBox pictureBox1;
-        private DataGridViewTextBoxColumn colPersonID;
-        private DataGridViewTextBoxColumn colNationalNo;
-        private DataGridViewTextBoxColumn colFirstName;
-        private DataGridViewTextBoxColumn colSecondName;
-        private DataGridViewTextBoxColumn colThirdName;
-        private DataGridViewTextBoxColumn colLastName;
-        private DataGridViewTextBoxColumn colGender;
-        private DataGridViewTextBoxColumn colDateOFBirth;
-        private DataGridViewTextBoxColumn colNationality;
-        private DataGridViewTextBoxColumn colPhone;
-        private DataGridViewTextBoxColumn colEmail;
         private Button btnClose;
         private Label label2;
         private Label lnNumberOFPeople;
         private PictureBox btnAddNewPerson;
         private ContextMenuStrip contextMenuStrip1;
         private ToolStripMenuItem ShowDetailesToolStripMenuItem;
-        private ToolStripMenuItem AddNewToolStripMenuItem;
         private ToolStripMenuItem EditToolStripMenuItem;
         private ToolStripMenuItem deleteToolStripMenuItem1;
-        private ToolStripMenuItem doAppoitmentToolStripMenuItem;
-        private ToolStripMenuItem addASPatientToolStripMenuItem;
-        private ToolStripMenuItem addASDoctorToolStripMenuItem;
-        private ToolStripSeparator toolStripSeparator1;
-        private ToolStripSeparator toolStripSeparator2;
-        private ToolStripSeparator toolStripSeparator3;
-        private ToolStripSeparator toolStripSeparator4;
+        private ToolStripMenuItem SendEmailoolStripMenuItem;
+        private ToolStripMenuItem phoneCallToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator5;
         private Controls.ctrlFindByFilter ctrlFindByFilter1;
+        private ToolStripMenuItem AddNewToolStripMenuItem;
     }
 }

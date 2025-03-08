@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MainDVLD.Countries;
+using MainDVLD.Countries.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,7 +30,7 @@ namespace MainDVLD.People.DTOs
         {
         }
 
-        public PersonsDTO(int id, string nationalNo, string FName, string SName, string ThName, string LName, DateTime dateOfBirth, short gender, string address, string PhoneNumber, string email, int country, string imagePath)
+         public  PersonsDTO(int id, string nationalNo, string FName, string SName, string ThName, string LName, DateTime dateOfBirth, short gender, string address, string PhoneNumber, string email, int country, string imagePath)
         {
             this.PersonID = id;
             this.NationalNo = nationalNo;
@@ -43,6 +45,7 @@ namespace MainDVLD.People.DTOs
             this.Email = email;
             this.NationalityCountryID = country;
             this.ImagePath = imagePath;
+           
         }
 
     }

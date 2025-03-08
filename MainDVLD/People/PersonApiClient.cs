@@ -18,10 +18,6 @@ namespace MainDVLD.People
         private static readonly HttpClient _staticHttpClient = HttpClientSingleton.Instance;
         private static string _endPoint = "People/";
 
-        public PersonApiClient()
-        {
-            
-        }
 
         public async Task<ApiResult<List<PersonsDTO>>> GetAllPeople(Dictionary<string, string> filters = null)
         {
@@ -110,43 +106,11 @@ namespace MainDVLD.People
             }
             return apiResult;
         }
+      
+        
         public async Task<ApiResult<PersonsDTO>> FindByPersonID(int PersonID)
         {
-            var apiResult = new ApiResult<PersonsDTO>();
-
-            try
-            {
-                var response = await _staticHttpClient.GetAsync(_endPoint + $"FindByID/{PersonID}");
-
-                if (response.IsSuccessStatusCode)
-                {
-                    apiResult.IsSuccess = true;
-                    apiResult.Status = ApiResponseStatus.Success;
-                    var user = await response.Content.ReadFromJsonAsync<PersonsDTO>();
-                    apiResult.Result = user;
-                }
-
-                else
-                {
-                    apiResult.IsSuccess = false;
-                    apiResult.Status = response.StatusCode switch
-                    {
-                        System.Net.HttpStatusCode.BadRequest => ApiResponseStatus.BadRequest,
-                        System.Net.HttpStatusCode.NotFound => ApiResponseStatus.NotFound,
-                        _ => ApiResponseStatus.ServerError,
-                    };
-                    // if there any message in the body will be stored in ErrorMessage
-                    apiResult.ErrorMessage = await response.Content.ReadAsStringAsync();
-                }
-
-
-            }
-            catch (Exception ex)
-            {
-                //Logger loger = new Logger(LoggingMethod.EventLogger);
-                //loger.Log($"User Error:{ex.Message}");
-            }
-            return apiResult;
+            return await PersonApiClient.FindByPersonIDStatic(PersonID);
         }
 
         public async Task<ApiResult<bool>> ISPersonExist(int PersonID)
@@ -184,8 +148,6 @@ namespace MainDVLD.People
             }
             return apiResult;
         }
-
-
 
         public async Task<ApiResult<PersonsDTO>> AddNewPerson(PersonsDTO newPerson)
         {
@@ -295,6 +257,47 @@ namespace MainDVLD.People
             {
                 //Logger logger = new Logger(LoggingMethod.EventLogger);
                 //logger.Log($"User Error: {ex.Message}");
+            }
+            return apiResult;
+        }
+
+
+        //static Methods
+        public static async Task<ApiResult<PersonsDTO>> FindByPersonIDStatic(int PersonID)
+        {
+            var apiResult = new ApiResult<PersonsDTO>();
+
+            try
+            {
+                var response = await _staticHttpClient.GetAsync(_endPoint + $"FindByID/{PersonID}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    apiResult.IsSuccess = true;
+                    apiResult.Status = ApiResponseStatus.Success;
+                    var user = await response.Content.ReadFromJsonAsync<PersonsDTO>();
+                    apiResult.Result = user;
+                }
+
+                else
+                {
+                    apiResult.IsSuccess = false;
+                    apiResult.Status = response.StatusCode switch
+                    {
+                        System.Net.HttpStatusCode.BadRequest => ApiResponseStatus.BadRequest,
+                        System.Net.HttpStatusCode.NotFound => ApiResponseStatus.NotFound,
+                        _ => ApiResponseStatus.ServerError,
+                    };
+                    // if there any message in the body will be stored in ErrorMessage
+                    apiResult.ErrorMessage = await response.Content.ReadAsStringAsync();
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                //Logger loger = new Logger(LoggingMethod.EventLogger);
+                //loger.Log($"User Error:{ex.Message}");
             }
             return apiResult;
         }
